@@ -15,6 +15,10 @@ class mysql {
   #Use a custom mysql configuration file
   file { '/etc/mysql/my.cnf':
     source  => 'puppet:///modules/mysql/my.cnf',
+    #Permissions are necessary for this file, if world writable mysql will throw error
+    owner => 'root',
+    group => 'root',    
+    mode => 0644,
     require => Package['mysql-server-5.6'],
     notify  => Service['mysql'],
   }

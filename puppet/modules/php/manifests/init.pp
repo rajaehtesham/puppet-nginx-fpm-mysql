@@ -17,7 +17,10 @@ class php {
   file { 'vagrant-phpfpm-wwwconf':
     path => '/etc/php5/fpm/pool.d/www.conf',
     ensure => file,
-    notify => Service['php-fpm'],
+    owner => 'root',
+    group => 'root',
+    mode => 0644,
+    notify => Service['php5-fpm'],
     require => Package['php5-fpm'],
     source => 'puppet:///modules/php/www.conf',
   }
@@ -26,7 +29,10 @@ class php {
   file { 'vagrant-phpfpm-phpini':
     path => '/etc/php5/fpm/php.ini',
     ensure => file,
-    notify => Service['php-fpm'],
+    owner => 'root',
+    group => 'root',
+    mode => 0644,
+    notify => Service['php5-fpm'],
     require => Package['php5-fpm'],
     source => 'puppet:///modules/php/php.ini',
   }
@@ -35,8 +41,12 @@ class php {
   file { 'vagrant-phpfpm-cli-phpini':
     path => '/etc/php5/cli/php.ini',
     ensure => file,
-    notify => Service['php-fpm'],
-    require => Package['php5-fpm'],
+    owner => 'root',
+    group => 'root',    
+    mode => 0644,
+#TODO: This breaks things php5-cli doesnt seem to run as a service
+#    notify => Service['php5-cli'],
+    require => Package['php5-cli'],
     source => 'puppet:///modules/php/php-cli.ini',
   }
 
@@ -66,7 +76,7 @@ class php {
              'php5-xmlrpc',
              'php5-xsl',]:
     ensure => present,
-    notify => Service['php-fpm'],
+    notify => Service['php5-fpm'],
     require => [
       Package['php5-fpm'],
       File['vagrant-phpfpm-phpini'],
@@ -74,4 +84,20 @@ class php {
       File['vagrant-phpfpm-wwwconf'],
     ],
   }
+
+  #Add xdebug.ini
+  file { 'vagrant-phpfpm-xdebugini':
+    path => '/etc/php5/mods-available/xdebug.ini',
+    ensure => file,
+    owner => 'root',
+    group => 'root',
+    mode => 0644,
+    notify => Service['php5-fpm'],
+    require => [
+      Package['php5-fpm',
+              'php5-xdebug'],
+    ],
+    source => 'puppet:///modules/php/xdebug.ini',
+  }
+
 }
