@@ -12,12 +12,12 @@ class mysql {
     require => Package['mysql-server-5.6'],
   }
 
-  # Use a custom mysql configuration file
-  #file { '/etc/mysql/my.cnf':
-  #  source  => 'puppet:///modules/mysql/my.cnf',
-  #  require => Package['mysql-server'],
-  #  notify  => Service['mysql'],
-  #}
+  #Use a custom mysql configuration file
+  file { '/etc/mysql/my.cnf':
+    source  => 'puppet:///modules/mysql/my.cnf',
+    require => Package['mysql-server-5.6'],
+    notify  => Service['mysql'],
+  }
 
   # We set the root password here
   exec { 'set-mysql-password':
