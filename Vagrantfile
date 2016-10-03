@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.post_up_message = "**************************************************\nMachine Configured By :\nhttps://github.com/rajaehtesham\n\n\n||||||||||           |||||||||\n|||                  |||    ||\n|||                  |||    ||\n||||||||  HTESHAM    ||||||||| RIAZAT\n|||                  |||  ||\n|||                  |||   ||\n||||||||||           |||    ||"
+  config.vm.post_up_message = "**************************************************\nMachine Configured By :\nhttps://github.com/rajaehtesham\n\n\n||||||||||           |||||||||\n|||                  |||    ||\n|||                  |||    ||\n||||||||  HTESHAM    ||||||||| IAZAT\n|||                  |||  ||\n|||                  |||   ||\n||||||||||           |||    ||"
   #change this, if you also change in manifests/site.pp  
   config.vm.hostname = "devphp.local"
   config.vm.network :private_network, ip: "192.168.56.111"
